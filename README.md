@@ -1,17 +1,22 @@
-# Simple COLLADA (.dae) Importer — Blender 5 Extension
+# Blender COLLADA (.dae) Import & Export — Blender 5
 
-A lightweight Blender 5 **extension** that restores support for importing `.dae`
+A lightweight Blender 5 **extension** that restores support for importing and exporting `.dae`
 (COLLADA) files after the official importer was removed in Blender 5. It also
 handles textures, polylist geometry, armatures, skin weights, and per-file
 up-axis correction.
 
-> **Upstream project:** <https://github.com/RebeccaNod1/Blender-v5-DAE-Importer-Add-on>
+This version of the Addon aims to work and behave similarly to the original DAE addon, but
+obviously with improvements.
+
+> **Upstream project:** <https://github.com/Tzeentchnet/Blender-v5-DAE-Importer-Add-on>
 
 ## Credits
 
 This extension builds directly on prior community work:
 
-- **[RebeccaNod1](https://github.com/RebeccaNod1)** — the immediate code base this
+- **[Tzeentchnet](https://github.com/Tzeentchnet)** — the immediate code base this
+  extension is built on
+- **[RebeccaNod1](https://github.com/RebeccaNod1)** — the next to immediate code base this
   extension is built on
 - **[MilesExilium](https://github.com/MilesExilium)** — extended materials, armature, skin
   weights, polylist support
@@ -22,8 +27,7 @@ Huge thanks to the authors above for the core importer logic. On top of that
 foundation, this fork repackages everything as a proper Blender 5 extension,
 adds drag-and-drop and multi-file import, a status-bar progress indicator,
 configurable scale and forward axis, a correctness fix for skin-weight
-assignment, and NumPy-accelerated parsing and mesh upload — see _Improvements
-over upstream_ below for the full list.
+assignment, and NumPy-accelerated parsing and mesh upload
 
 ## Features
 
@@ -52,23 +56,25 @@ over upstream_ below for the full list.
 
 ## Installation
 
-### Blender 5.0+ (recommended — extensions panel)
+### Blender 5.0+ (extensions panel)
 
-1. Download `simple_collada_importer-1.5.2.zip` (or build it from this repo —
-   see _Building_ below).
+1. Download code as zip
 2. In Blender open **Edit → Preferences → Get Extensions → Install from Disk…**
 3. Select the `.zip` file.
 4. The extension is enabled automatically. You will find it under the **Add-ons**
-   tab as **Simple COLLADA (.dae) Importer**.
+   tab as **Blender COLLADA (.dae) Importer**.
 
 ## Usage
+Same as old Blender
 
 ### File menu
 
-**File → Import → Simple COLLADA (.dae)** — opens a file dialog. The sidebar
+**File → Import → Blender COLLADA (.dae)** — opens a file dialog. The sidebar
 (and F9 redo panel) exposes:
 
-- **Import Rig** — skip armature/skin import for geometry-only loads.
+- **Import Rig** — Import armature/skin weights.
+- **Use File Name for Armature** — Uses File Name for the Armature name 
+  instead of the .dae one
 - **Split by Material** — split each imported geometry into one object per
   material, so each piece appears separately in the Outliner. Off by default.
 - **Use Blender Default Material** — ignore the DAE's diffuse / specular
@@ -85,9 +91,10 @@ over upstream_ below for the full list.
   (default `1.0`).
 - **Forward** — which DAE axis (after up-axis correction) maps to Blender's
   forward (`-Y`). Default `-Y` keeps existing behavior.
+- **Empty Display** — Changes the way empties are displayed.
 
 The defaults for every option above are also configurable in
-**Edit → Preferences → Add-ons → Simple COLLADA (.dae) Importer**, so your
+**Edit → Preferences → Add-ons → Blender COLLADA (.dae) Import & Export**, so your
 preferred values are pre-selected in both the file dialog and drag-and-drop
 imports.
 
@@ -105,24 +112,6 @@ pick a folder. Materials whose name matches an image file (e.g. material
 `brick_wall` and image `brick_wall.png`) get a fresh Principled BSDF + image
 texture.
 
-## Improvements over upstream
-
-| Area | Upstream | This extension |
-| --- | --- | --- |
-| Add-on format | `bl_info` legacy | Blender 5 extension (`blender_manifest.toml`) |
-| File entry point | File → Import only | File → Import **+** drag-and-drop |
-| Multi-file import | One at a time | Many `.dae` files in a single drop |
-| Float / int parsing | `[float(v) for v in text.split()]` | `numpy.fromstring(..., sep=" ")` |
-| Mesh data transfer | `from_pydata` (Python loop) | `mesh.{vertices,loops,polygons}.foreach_set` |
-| UV / color upload | per-loop Python loop | `foreach_set` from a flat NumPy buffer |
-| Skin weight assign | per-pair `vgroup.add(..., 'ADD')` (sums duplicates by accident) | grouped per-bone `'REPLACE'` (intentional, vectorized) |
-| Fan-triangulation | per-corner Python loop | Vectorized NumPy fan + degenerate-triangle filter |
-| Source array reuse | re-parsed per primitive / per instance | Cached by `<source>` id across the whole import |
-| Validation | None | `mesh.validate()` after build |
-
-On meshes with hundreds of thousands of corners these changes typically cut
-import time by an order of magnitude versus the upstream pure-Python path.
-
 ## Suggested future improvements
 
 These are documented for contributors; they are **not** implemented yet.
@@ -131,30 +120,9 @@ These are documented for contributors; they are **not** implemented yet.
   very large `.dae` files.
 - Optional preservation of vertex order for round-trip workflows.
 
-## Building from source
-
-The extension is a plain folder + `blender_manifest.toml`. To produce an
-installable zip in `dist/` from a checkout:
-
-```powershell
-# PowerShell (Windows)
-.\build.ps1
-```
-
-```bash
-# bash
-mkdir -p dist && cd simple_collada_importer && zip -r ../dist/simple_collada_importer-1.5.2.zip . && cd ..
-```
-
-You can also use Blender's own validator:
-
-```bash
-blender --command extension validate dist/simple_collada_importer-1.5.2.zip
-```
-
 ## Notes
 
-- Tested on Blender 5.0+. Skin weights require the mesh and armature to be
+- Tested on Blender 5.1+. Skin weights require the mesh and armature to be
   exported together in the same `.dae` file.
 - Normal maps are connected automatically for the imported UV set. Models that
   rely on additional UV channels may still need manual shader adjustment.
