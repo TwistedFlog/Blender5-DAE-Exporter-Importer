@@ -1,38 +1,38 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-"""Simple COLLADA (.dae) Importer — Blender 5 extension."""
+"""Blender COLLADA (.dae) Importer — Blender 5 extension."""
 
 import bpy
 
 from . import importer  # noqa: F401  (kept for side-effect-free module import)
 from .operators import (
-    IMPORT_OT_simple_collada_full,
-    EXPORT_OT_simple_collada,
+    IMPORT_OT_blender_collada_full,
+    EXPORT_OT_blender_collada,
     OBJECT_OT_assign_textures_by_name,
 )
-from .file_handler import IO_FH_simple_collada
-from .preferences import SimpleColladaPreferences
+from .file_handler import IO_FH_blender_collada
+from .preferences import BlenderColladaPreferences
 
 
 classes = (
-    SimpleColladaPreferences,
-    IMPORT_OT_simple_collada_full,
-    EXPORT_OT_simple_collada,
+    BlenderColladaPreferences,
+    IMPORT_OT_blender_collada_full,
+    EXPORT_OT_blender_collada,
     OBJECT_OT_assign_textures_by_name,
-    IO_FH_simple_collada,
+    IO_FH_blender_collada,
 )
 
 
 def menu_func_import(self, context):
     self.layout.operator(
-        IMPORT_OT_simple_collada_full.bl_idname,
-        text="Simple COLLADA (.dae)",
+        IMPORT_OT_blender_collada_full.bl_idname,
+        text="Blender COLLADA (.dae)",
     )
 
 
 def menu_func_export(self, context):
     self.layout.operator(
-        EXPORT_OT_simple_collada.bl_idname,
-        text="Simple COLLADA (.dae)",
+        EXPORT_OT_blender_collada.bl_idname,
+        text="Blender COLLADA (.dae)",
     )
 
 

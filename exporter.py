@@ -663,7 +663,7 @@ def export_dae(
     # <asset>
     asset = _el(root, "asset")
     contrib = _el(asset, "contributor")
-    _el(contrib, "authoring_tool", text="Simple COLLADA Exporter (Blender)")
+    _el(contrib, "authoring_tool", text="Blender COLLADA Exporter")
     _el(asset, "up_axis", text="Z_UP")
 
     lib_img  = _el(root, "library_images")

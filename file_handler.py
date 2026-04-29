@@ -3,15 +3,15 @@
 
 import bpy
 
-from .operators import IMPORT_OT_simple_collada_full
+from .operators import IMPORT_OT_blender_collada_full
 
 
-class IO_FH_simple_collada(bpy.types.FileHandler):
+class IO_FH_blender_collada(bpy.types.FileHandler):
     """Allow dragging .dae files from the OS into Blender's 3D viewport / outliner."""
 
-    bl_idname = "IO_FH_simple_collada"
-    bl_label = "Simple COLLADA"
-    bl_import_operator = IMPORT_OT_simple_collada_full.bl_idname
+    bl_idname = "IO_FH_blender_collada"
+    bl_label = "Blender COLLADA"
+    bl_import_operator = IMPORT_OT_blender_collada_full.bl_idname
     bl_file_extensions = ".dae"
 
     @classmethod

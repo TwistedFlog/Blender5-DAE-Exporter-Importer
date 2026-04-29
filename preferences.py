@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-"""Add-on preferences: default values for the Simple COLLADA importer."""
+"""Add-on preferences: default values for the Blender COLLADA importer."""
 
 import bpy
 from bpy.props import BoolProperty, EnumProperty, FloatProperty
@@ -22,8 +22,8 @@ EMPTY_DISPLAY_ITEMS = (
 )
 
 
-class SimpleColladaPreferences(AddonPreferences):
-    """Preferences shown in Edit -> Preferences -> Add-ons -> Simple COLLADA."""
+class BlenderColladaPreferences(AddonPreferences):
+    """Preferences shown in Edit -> Preferences -> Add-ons -> Blender COLLADA."""
 
     bl_idname = __package__
 
@@ -113,7 +113,7 @@ class SimpleColladaPreferences(AddonPreferences):
         col.prop(self, "default_forward_axis")
         col.prop(self, "default_empty_display_type")
         layout.label(
-            text="These defaults seed the File > Import > Simple COLLADA "
+            text="These defaults seed the File > Import > Blender COLLADA "
                  "(.dae) dialog and drag-and-drop imports.",
         )
 

@@ -1,0 +1,23 @@
+schema_version = "1.0.0"
+
+id = "blender_collada_importer"
+version = "1.0"
+name = "Blender COLLADA (.dae) Import & Export"
+tagline = "Import and export COLLADA .dae files with textures, armature, skin weights & shape keys"
+maintainer = "TwistedFlog"
+type = "add-on"
+
+website = "https://github.com/TwistedFlog/Blender5-DAE-Exporter-Importer"
+
+tags = ["Import-Export"]
+
+blender_version_min = "5.0.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+# No external Python wheels required — NumPy ships with Blender.
+
+[permissions]
+files = "Read .dae files and sibling texture images from disk; write .dae files on export"

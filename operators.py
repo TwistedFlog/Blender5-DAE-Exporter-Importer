@@ -1,5 +1,5 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
-"""Operators for the Simple COLLADA extension."""
+"""Operators for the Blender COLLADA extension."""
 
 import os
 
@@ -19,11 +19,11 @@ from .exporter import export_dae
 from .preferences import get_prefs
 
 
-class IMPORT_OT_simple_collada_full(Operator, ImportHelper):
+class IMPORT_OT_blender_collada_full(Operator, ImportHelper):
     """Import a COLLADA (.dae) mesh with full features"""
 
-    bl_idname = "import_scene.simple_collada_full"
-    bl_label = "Import Simple COLLADA (.dae)"
+    bl_idname = "import_scene.blender_collada_full"
+    bl_label = "Import Blender COLLADA (.dae)"
     bl_options = {"REGISTER", "UNDO", "PRESET"}
     filename_ext = ".dae"
 
@@ -297,11 +297,11 @@ class OBJECT_OT_assign_textures_by_name(Operator):
         return {"FINISHED"}
 
 
-class EXPORT_OT_simple_collada(Operator, ExportHelper):
+class EXPORT_OT_blender_collada(Operator, ExportHelper):
     """Export selected objects to a COLLADA (.dae) file"""
 
-    bl_idname = "export_scene.simple_collada"
-    bl_label = "Export Simple COLLADA (.dae)"
+    bl_idname = "export_scene.blender_collada"
+    bl_label = "Export Blender COLLADA (.dae)"
     bl_options = {"REGISTER", "UNDO", "PRESET"}
     filename_ext = ".dae"
 
