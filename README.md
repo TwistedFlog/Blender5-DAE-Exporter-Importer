@@ -112,14 +112,6 @@ pick a folder. Materials whose name matches an image file (e.g. material
 `brick_wall` and image `brick_wall.png`) get a fresh Principled BSDF + image
 texture.
 
-## Suggested future improvements
-
-These are documented for contributors; they are **not** implemented yet.
-
-- Use `xml.etree.ElementTree.iterparse` + `clear()` to reduce peak memory on
-  very large `.dae` files.
-- Optional preservation of vertex order for round-trip workflows.
-
 ## Notes
 
 - Tested on Blender 5.1+. Skin weights require the mesh and armature to be
