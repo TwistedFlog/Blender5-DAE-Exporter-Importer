@@ -2,8 +2,8 @@ schema_version = "1.0.0"
 
 id = "simple_collada_importer"
 version = "1.5.2"
-name = "Simple COLLADA (.dae) Importer"
-tagline = "Import COLLADA .dae files with textures, armature, skin weights"
+name = "Simple COLLADA (.dae) Import/Export"
+tagline = "Import and export COLLADA .dae files with textures, armature, skin weights"
 maintainer = "Tzeentchnet <58480142+Tzeentchnet@users.noreply.github.com>"
 type = "add-on"
 
@@ -20,4 +20,4 @@ license = [
 # No external Python wheels required — NumPy ships with Blender.
 
 [permissions]
-files = "Read .dae files and sibling texture images from disk"
+files = "Read .dae files and sibling texture images from disk; write .dae files on export"

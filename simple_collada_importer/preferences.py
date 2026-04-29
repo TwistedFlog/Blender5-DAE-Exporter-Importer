@@ -16,6 +16,12 @@ FORWARD_AXIS_ITEMS = (
 )
 
 
+EMPTY_DISPLAY_ITEMS = (
+    ("SPHERE", "Sphere", ""),
+    ("PLAIN_AXES", "Plain Axes", ""),
+)
+
+
 class SimpleColladaPreferences(AddonPreferences):
     """Preferences shown in Edit -> Preferences -> Add-ons -> Simple COLLADA."""
 
@@ -58,7 +64,7 @@ class SimpleColladaPreferences(AddonPreferences):
             "DAE files with inconsistent face winding that show up as dark / "
             "flipped patches on the model"
         ),
-        default=True,
+        default=False,
     )
 
     default_global_scale: FloatProperty(
@@ -77,16 +83,35 @@ class SimpleColladaPreferences(AddonPreferences):
         default="-Y",
     )
 
+    default_use_file_name_for_armature: BoolProperty(
+        name="Use File Name for Armature",
+        description=(
+            "Use the imported .dae file name for the armature object name. "
+            "When disabled, the importer falls back to the COLLADA visual scene name "
+            "or id if available."
+        ),
+        default=True,
+    )
+
+    default_empty_display_type: EnumProperty(
+        name="Empty Display",
+        description="Default display type used for imported empties",
+        items=EMPTY_DISPLAY_ITEMS,
+        default="SPHERE",
+    )
+
     def draw(self, context):
         layout = self.layout
         layout.label(text="Default import options:")
         col = layout.column(align=True)
         col.prop(self, "default_import_rig")
+        col.prop(self, "default_use_file_name_for_armature")
         col.prop(self, "default_split_by_material")
         col.prop(self, "default_use_default_material")
         col.prop(self, "default_recalculate_normals")
         col.prop(self, "default_global_scale")
         col.prop(self, "default_forward_axis")
+        col.prop(self, "default_empty_display_type")
         layout.label(
             text="These defaults seed the File > Import > Simple COLLADA "
                  "(.dae) dialog and drag-and-drop imports.",
