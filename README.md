@@ -5,6 +5,9 @@ A lightweight Blender 5 **extension** that restores support for importing and ex
 handles textures, polylist geometry, armatures, skin weights, and per-file
 up-axis correction.
 
+A Blender 5 Dae Exporter
+A Blender 5 Dae Importer
+
 This version of the Addon aims to work and behave similarly to the original DAE addon, but
 obviously with improvements.
 
